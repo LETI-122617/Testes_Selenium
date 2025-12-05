@@ -16,6 +16,7 @@ public class MainPageTest {
 
     @BeforeAll
     public static void setUpAll() {
+        // A tua versão (correta) usa 1920x1080 e configura o Allure
         Configuration.browserSize = "1920x1080";
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
@@ -28,7 +29,7 @@ public class MainPageTest {
         // 2. Dar tempo para carregar
         Selenide.sleep(1000);
 
-        // 3. Fechar Cookies (se aparecerem)
+        // 3. Fechar Cookies (se aparecerem) - Lógica robusta
         SelenideElement cookieButton = $(byText("Accept All"));
         if (cookieButton.exists()) {
             cookieButton.click();
@@ -46,21 +47,18 @@ public class MainPageTest {
 
     @Test
     public void verifyDeveloperToolsMenu() {
-        // Teste de Navegação: Clicar em "Developer Tools" e ver se o menu abre
-        // Usamos um seletor genérico pelo texto, que é mais resistente a mudanças
+        // Teste de Navegação
         SelenideElement menuDevTools = $(byText("Developer Tools"));
 
         menuDevTools.shouldBe(visible).click();
 
-        // Verifica se aparece algum submenu ou se a URL muda (dependendo da versão do site mobile/desktop)
-        // Aqui verificamos apenas se o elemento continua visível e ativo
+        // Verifica se continua visível/ativo
         menuDevTools.shouldBe(visible);
     }
 
     @Test
     public void verifySearchButtonExists() {
-        // Teste de Existência: Verificar apenas se o botão de pesquisa existe
-        // (Sem tentar interagir com o input complexo que estava a dar erro)
+        // Teste de Existência atualizado
         $("[data-test='site-header-search-action']").shouldBe(visible);
     }
 }
