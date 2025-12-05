@@ -1,0 +1,377 @@
+<html><head>
+    <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="robots" content="noindex"><title>Login - Vaadin SSO</title>
+
+    
+    <link rel="stylesheet" type="text/css" href="/webjars/normalize.css/8.0.1/normalize.css"><link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.3/css/bootstrap-grid.min.css"><link rel="stylesheet" type="text/css" href="/webjars/material-components-web/13.0.0/dist/material-components-web.min.css"><link rel="stylesheet" type="text/css" href="/webjars/mdi__font/6.2.95/css/materialdesignicons.min.css"><link rel="stylesheet" type="text/css" href="/css/cas.css"><link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"><link rel="stylesheet" href="https://cdn.vaadin.com/website/antlers/v2/assets/css/1-foundation/custom-properties.css"><link rel="stylesheet" href="https://cdn.vaadin.com/website/antlers/v2/assets/css/1-foundation/reset.css"><link rel="stylesheet" href="https://cdn.vaadin.com/website/antlers/v2/assets/css/1-foundation/typography.css"><link rel="stylesheet" href="https://cdn.vaadin.com/website/antlers/v2/assets/css/2-components/fields.css"><link rel="stylesheet" href="https://cdn.vaadin.com/website/antlers/v2/assets/css/2-components/button.css"><link rel="icon" href="https://vaadin.com/favicon.ico" type="image/x-icon"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></head>
+
+<body class="login mdc-typography">
+ <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script type="text/javascript" src="/webjars/css-vars-ponyfill/2.4.7/dist/css-vars-ponyfill.min.js"></script>
+    <script type="text/javascript" src="/webjars/material-components-web/13.0.0/dist/material-components-web.min.js"></script>
+<script type="text/javascript" src="/js/cas.js"></script>
+<script type="text/javascript" src="/js/material.js"></script>
+<script>
+    if (typeof resourceLoadedSuccessfully === "function") {
+        resourceLoadedSuccessfully();
+    }
+    $(function() {
+        typeof cssVars === "function" && cssVars({onlyLegacy: true});
+    })
+</script>
+
+<script>
+    /*<![CDATA[*/
+
+    var trackGeoLocation = false;
+
+    var googleAnalyticsTrackingId = null;
+
+    if (googleAnalyticsTrackingId != null && googleAnalyticsTrackingId != '') {
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', googleAnalyticsTrackingId, 'auto');
+        ga('send', 'pageview');
+    }
+
+    /*]]>*/
+</script>
+<div class="login-form-header">
+    <div class="vaadin-logo">
+        <svg width="111" height="26" fill="none" xmlns="http://www.w3.org/2000/svg"><path class="haas-logo-textmark" d="M12.32 5.518c-.852 0-1.419.401-1.797 1.276l-3.38 7.256-3.356-7.256c-.378-.875-.946-1.276-1.797-1.276-1.04 0-1.89.85-1.89 1.89 0 .331.094.662.236.922l5.129 11.014c.024.071.047.119.094.19.213.401.568.685.993.85.19.071.402.119.615.119.212 0 .425-.048.614-.119a1.76 1.76 0 0 0 .993-.85c.023-.048.047-.119.094-.19l5.106-10.99c.165-.284.26-.615.26-.945-.024-1.04-.875-1.891-1.915-1.891ZM21.584 16.697a3.632 3.632 0 0 1-3.616-3.616 3.631 3.631 0 0 1 3.616-3.616 3.631 3.631 0 0 1 3.617 3.616 3.631 3.631 0 0 1-3.617 3.616Zm7.398-3.616c0-4.113-3.332-7.469-7.445-7.469s-7.445 3.356-7.445 7.469 3.356 7.469 7.469 7.469a7.532 7.532 0 0 0 3.97-1.135l.166-.118.07.19c.26.637.852 1.063 1.537 1.063.922 0 1.655-.733 1.655-1.678V13.08h.023ZM37.562 16.697a3.631 3.631 0 0 1-3.616-3.616 3.631 3.631 0 0 1 3.616-3.616 3.631 3.631 0 0 1 3.616 3.616 3.631 3.631 0 0 1-3.616 3.616Zm7.398-3.616c0-4.113-3.333-7.469-7.445-7.469-4.113 0-7.445 3.356-7.445 7.469s3.356 7.469 7.468 7.469a7.532 7.532 0 0 0 3.971-1.135l.19-.118.07.19c.26.637.851 1.063 1.537 1.063.921 0 1.654-.733 1.654-1.678V13.08ZM53.445 16.58a3.53 3.53 0 0 1-3.522-3.523 3.53 3.53 0 0 1 3.522-3.521 3.53 3.53 0 0 1 3.522 3.521 3.53 3.53 0 0 1-3.522 3.522Zm4.136 2.859a1.72 1.72 0 0 0 1.607 1.087c.946 0 1.726-.78 1.726-1.725V1.949c0-.946-.804-1.726-1.75-1.726-.945 0-1.748.78-1.748 1.726v4.869l-.142-.119c-1.182-.732-2.458-1.11-3.829-1.11-4.112 0-7.445 3.356-7.445 7.468 0 4.113 3.356 7.47 7.469 7.47a7.594 7.594 0 0 0 3.97-1.135l.119-.071.023.118ZM81.997 8.047c-1.158-1.23-2.836-1.844-5.01-1.844-.072 0-1.797.118-2.979.78a1.93 1.93 0 0 0-1.844-1.347c-1.04 0-1.914.85-1.938 1.89v11.11c0 1.063.875 1.938 1.938 1.938a1.947 1.947 0 0 0 1.939-1.939v-5.909c0-1.229.898-2.552 2.883-2.552 1.915 0 2.765 1.37 2.765 2.34v6.145c0 1.064.875 1.938 1.939 1.938a1.947 1.947 0 0 0 1.938-1.938v-5.862c.023-.212.165-2.86-1.631-4.75ZM65.594 5.612a1.958 1.958 0 0 0-1.962 1.891v11.038c0 1.087.875 1.962 1.962 1.962a1.957 1.957 0 0 0 1.962-1.962V7.503a1.958 1.958 0 0 0-1.962-1.89ZM65.641.2c1.135 0 2.056.921 2.056 2.056a2.058 2.058 0 0 1-2.056 2.056 2.058 2.058 0 0 1-2.056-2.056c0-1.135.922-2.056 2.056-2.056Z" fill="currentColor"></path><path d="M94.5 11.497c-.07 0-.142-.023-.213-.023-.709 0-1.442-.166-1.442-1.891v-5.72c0-2.576-1.205-3.592-3.64-3.592h-2.08c-.685 0-1.252.496-1.252 1.205 0 .685.567 1.229 1.253 1.229h.709c.78 0 1.323.496 1.323 1.678v5.625c0 2.553 1.891 2.766 2.908 2.837v.047c-1.017.095-2.908.284-2.908 2.836v5.626c0 1.181-.543 1.843-1.323 1.843h-.71c-.685 0-1.252.52-1.252 1.23 0 .684.567 1.228 1.253 1.228h2.08c2.434 0 3.64-1.229 3.64-3.805v-5.744c0-1.725.732-1.89 1.441-1.89.071 0 .142 0 .213-.024a1.329 1.329 0 0 0 1.253-1.347c0-.733-.567-1.3-1.253-1.348ZM110.1 12.821c0-.614-.355-1.134-.875-1.37-.024 0-.047-.024-.071-.024l-9.667-5.224a1.685 1.685 0 0 0-2.505 1.465c0 .733.354 1.253 1.134 1.584l6.666 3.57-6.666 3.568c-.78.355-1.158.85-1.158 1.584a1.685 1.685 0 0 0 2.506 1.465l9.667-5.223c.023 0 .023-.024.047-.024.567-.213.922-.756.922-1.37Z" fill="#00B4F0"></path></svg>
+    </div>
+</div>
+<div class="mdc-drawer-app-content mdc-top-app-bar--fixed-adjust d-flex justify-content-center">
+    <main role="main" id="main-content" class="container-lg py-4">
+        <div id="content" class="d-flex justify-content-center">
+   <div class="d-flex justify-content-center flex-md-row flex-column mdc-card mdc-card-content card flex-grow-1">
+        <section id="loginForm" class="login-section login-form card-body">
+            <div class="d-flex flex-column justify-content-between m-auto">
+            <h2>Log in with email</h2>
+            <div class="form-wrapper">
+                <form method="post" id="fm1" action="login">
+                    <section class="cas-field my-2=3">
+                        </section>
+
+                    <section class="cas-field my-3">
+                        <div class="d-flex flex-column">
+                            <label for="email" class="input-label"><span class="accesskey">E</span>mail</label>
+                            <input class="mdc-text-field__input" id="email" size="25" type="text" accesskey="e" value="" autocomplete="off" name="username"></div>
+                    </section>
+
+                    <section class="cas-field my-3 mdc-input-group">
+                        <div class="mdc-input-group-field mdc-input-group-field-append">
+                            <div class="mdc-text-field__input d-flex flex-column caps-check">
+                                <div class="forgot-password-section">
+                                <label for="password" class="input-label">Password</label>
+                                </div>
+                                <input class="mdc-text-field__input pwd" type="password" id="password-field" size="25" accesskey="p" autocomplete="off" name="password" value=""><span id="togglePassword" class="toggle-password-button" onclick="toggleVisibility()"></span>
+                                <script>
+                                    function toggleVisibility() {
+                                        let passwordField = document.getElementById("password-field");
+                                        passwordField.type = passwordField.type === "password" ? "text" : "password";
+                                    }
+                                </script>
+                            </div>
+                        </div>
+
+                    </section>
+
+
+                    <section class="cas-field my-3">
+                        </section>
+
+                    <section class="cas-field remember-me-section">
+                        <p>
+                            <input type="checkbox" name="rememberMe" id="rememberMe" value="true" checked=""><label for="rememberMe">Remember Me</label>
+                        </p>
+                        <a class="forgot-password" href="https://vaadin.com/forgot-password">Forgot password</a>
+                    </section>
+
+                    <section class="cas-field">
+                        <input type="hidden" name="execution" value="f12dca30-bb27-4285-93b0-947284dbc3dc_ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LjJTR19SdTA5MjhsbWloT282WWRrSENaOE1oLUhwU1M0c3gwS3NXeTdCYjUzVDhZeGpFVjdfUmFpX1dKLTFjd0NSMWhlUmRWY0VxQk9mcFNwbTY3bGE5QlV6dk1jRjRmdy1zbDNkSC1hc3EzOTRJTms2czd2eUNYYXlFaWtOdzZBZ1hFMS1QV0xxRG5nR1c1dU5tcnMtNFVYNkRiRGtOZ0RKX2ZDS01ST2IyZ1Z4YnZXMWFTZlRYSzVyc0tXbFZhQTBWcFc4SmZ1ZDU5LWZrc2xwazVfNExDalZManF5b2ViWWJlQ0d2bXNoRWlUbXZXT3BrTEMyVjgwUVBwV1NKUXp0VGVrMmoyQUs1S3F5TWZFbVFEZUM2b1pzMURna0lYR2FvSGRiOF9XeDQ3VkVOWmJia05SbU1Xa29iaHk1bjMwUWsxOEtKcW5WVS1GY3BjcldpRVlvekhsWFRGdDYyTWhIUVFGM3p6RlpYdDF2WVk2TTlwbUpCMGxJNm0wSnZ6Z2NkUUx3akpHcHM5ampzRmJUVlVuNXRhRm5DVGQ5MlNvSjc3b1RhZjR0QjZLdWU1Yy1vYTd3Smh4U21nSmxMQWpxaDF5WFVkNUt6TFQxbmt6eWdsQ0xXR0Y4RklXVHd1Zm9fekxEOE1GRlNRSVlzaFZlYl9mbGpWaFlEcTBTY21KbnhXSWNlOWoyZk1XNXF6Q18xb0pQeER3VjBDTVMzSWJTb09xNU5KRHBkQ05taUpGc3M5SDdsR1lyc1BqUlBsT2lWbGgwdWt4dTl4Ny1ZOVV5UGVRdERwS3ZiVWtLLVNWZ2FjQnJCanhrZ3VVb2JXZDJKcmZQdUR3eHd4V3hUS1NpUHFDZWhIRk1KT0ZUeEVqVHJSRl82d0hmdzlHemtZbmhHaS1ndnFnM1Y0MzJvZFN3cXktdlZ2bVliNDI5a3k2VUZiVDNIMEY2Yl9XbmxsUEhSdE45VGYzVFRxRkpEdjQwMUVPOEFvRGxMRWg0c01ZcXBDcktEeXJuZllvd3E5ZDZELUl3VnlfSWdGNWc0SkdOcm8xUHhQc2QyYzBMVGNLcTJzTHB1WVRvRVhwa2RzNkRoRHlleWQtQlpBa0lMTjM3N0trVmpSVUJQMnplOWo5amdSbncwbzA1cnhiYU9qR21udmtkMmJCN19WSzRZdG1wMTJfLVhPWlN6V0NRdlR3OV9DMF9mX2xEbDN1eTRzNzNnZVY1STN0THdlTk81bmJPa1B2NVZMbjlkR25YSjMzaHEwWkxuTmtiVFFIc0VqM3R6WExvT3VvREhLZnljM2dYWVlZOUpsMGRQcWIyR1M1UGlwRTlQZWswZFVydExucGFyTlBPcTV6TG9BN25yZkFLNDZSbFlza0V0T1BBcTExN0dNc3FaY0hPWldYczFSYmhRMUplT2pVS0dmV0VpdzFCbmNqZTJkcTNRYXhDTHZCWWRhR3pTeDk5Q20zYWxjYTFpdEpjM0kzcnkzcjRYa0xTOUR3VTFQZHhJRGlkcHBHYm0tcjBSZXlhTkhEMlNjNlBZRzRjUnFtcjE4Z1c0ZXV5bmpxY1JlZnNxZTJLbFYteDRCM2lucW9UbVM2bEFUTUlQZXFwcHV1anFaQzVnWGVwbTNEd0thR3dVLTFnampiaVl6bmo3YjVoajR4MXN6VWw1RElNSXhNTmdMbWlYb1VxMFdwMGFVZHBUcFVzMXdtcC04Smp4UEozSmF2Z2g3c1ZpblBGWnpHbDlTN1VTbzRMRkFfOExUWUJhMkFqRXpwT1g2YTAwdDVGTDFOQ0tQVFBJbU5RTTRRRm9xMDZ5NXBGTkREeEdjSXFqUmcxblVXcVZDMUhJRE42WTJMZm5JMXdwaGJZQTNNTVdNaU91VmxpSUxHejdUeXRZS1VvN0pxc2tfZ0d3d0l6LTJsakFsNWdTQ1BPQ0xtR09OeGdNM1dmOGtuRnJkLVZoRVZKOExrSFprNV83RFN1M0otUDhDQ2FpMTFQUVlyb2F3ZmZqQ1VacUdvc1VPdWRaNXo5RUV1ZFFEenBEMDJNMFZ3a3NLZmlHTzloWm9qVFJtcmw0UU00emI0M21aQ2dwSzV5eFViUldpQjc5TjRsdUZXcUR3dGFnbmJ6ejEtbDhaZEdtdTNWNGp4Rk9tbzhuLVdkMXdGeFlxSnJHazRwM1dVY1d5c29BcjB2MWFtUl9pcHo2Yi1RVjBMNVlyclpSY1FWVlNad0QzTDZsSW5SODhtMWtlbXpSNlpFemVMeFduMHplM1NJa2RLWC1lakNXem5zTjZuNGpLZEZvbE9YQnRTS0thYUxmZTFpUzJ4eVc1V2lUcXpETlhJYnJtcTZPTVVULXoycldNMWJ3M2M2YjdfclByYWV3cDc3TS01ZUdvRGJzQmRvWUxWUDhEX21sazNNX29CVFhSLTNEampXOHJTcEhqMTV6MUMxZGl0azUyMl82WlZSUEd1VzZNamxrYkNsMmtFUmRWUUFnaXBVVGY4bXNhREcwVXU0U2FNUHBOeEhrblFRWXJ1M3N0TzhRUzludnBuUS0zWTNoSkx1RktFVGdrTEFqUFhsNGdPYnZrUmxsaHE2V2hGUDc4a29zcHAzS2RMUWFkM3BQWlpjTE1SNG00TlJJX2lZcUwwRkZ4S2pqcmZQT1VjRWhfUGczZkRmeF9ISi1GdmFfUnpoNDV1RjhoUmJHOEhPQjVQMGw2WWthN3RZbUluT0gzaDdHQzFvN3I5ajhJb0tQX3pJUmZJLUZzYTBtakdqWFJJejcwLTlYNGZmT294WDVSdEJvZzVvUEZvYlpHQW9Ob1JLamlJOG8yN3VZanFhbERvellFSzhFLWZGZ0tKQmk5T1lrYnRvNFVJZGF1Wk9tb0JDYmw2d1ZMQnpKZnFFWFhFSGVMNk1ueGhuNGZqcTJVWGNQLWhCdWZUVTN0TlZxR2YtYllxSkhOWHFyNmdyMHlrODF6RWJTSFJFM1dDTXc5R3VyekMxNkstb0xxcDFLS3hNUXN1dmhYa1YwWjFSdVhBVVJtNWVfa3NPV1JFMXFDa2RUMmRMRE54cUJMVWtwbGk4WXBvUTNTQTVUdjRUSTlDaXB5Slpxa2hFS2R0d2NWNkhMQS1RejFhcGtIQ2pIVGY0aEl4MjhwOUdXWk8wRzVBaHBESUd5X3l3aHFfQ0ZhejhFVktOcXNubEVvbHlmUzV5UkN4TEVHa19pS2RYaGRycUxYODRDMjZ1SVFWS0FJZWl5V0l4a2xUSkdJZE4wTm83dlVabGhmbXp3cnNLNjBlTUwxNG13aWU4UTBMLWFKRmRfY1hfeERqQ3dlcUg3MVBCTnJyN1N0VFNrWU1vbU4yRmJ5Q2duRHhObTFQN1d1SkJXY2l1aE1STnVIUDI4YkVvY1BDVmR2dzQ5ZVR5S3VjWTU4MHVrMGRHU3B2dXBlVW5lT1ZDVTV0ZkhFSXJfRE5CZXMtblBiX2pBZkF4S1dyYVdMaTU0eFpsT3hyNmdTZlhUTmZ1S0p2Wk5md21fa19NNmdsVWF3SDVTd1VvdElodnZlOXN2R2VOLVlnSG1nQ3JvQXA0S00wZ2Ftek9LQjZpRG9uS0JBQ1dVSE9NUEtIaXcxVTlSbzFlSF9IRVo1V0t6VWp5THRpYVJ3WWlEN2pGOFFwVFhTaEI5S29US2tIaUhTRDFvSXY5S3lRVHN4U0pGdVJ1bUZJSDBxTFZlXzk0cXJXUHRpcUZ1N2NvelRJS3FkRl8wNTdOTnVWbWVEM29IWEpPa2N4Y2dteFFGZzlGVzhUUHFSZTZyV3ZwTkhhUGhTNUh0Q0h3c0FrQUhtZUpVNnNhNEJmamJZLWEteHNPaFhNWExnU0QzbXVzbzF6MndUWXlVZ0hIWXliRGhLUl91dF9NVlhhTFBJZUJUcjNRMm5pd0VvWXlsQWxqanRRTTVmR3g3OFUzc2hxWWFLRkdpNFFEVEx1V3dsR3F1UzAzTmc2VmF6Qy1WLWhhOFVIdHpRMl9iM1U2bDNHT05oNnFjZG5tSGg2UnFtX1pRb0Znb05RUk9lWkhiWE00WVNpY29PbXNKaXltbHdncmR3aG50Nlgtc2pWV1F3VkFCY05SU0JCVlA2eGFQX0ZKS0Q1S3BaYmI2cW1KZE9jMEdlVUVwOE5IYzRGT18wdFNYSTBMTFJhdWdZUzlRczdlemZTVGFUeHNVNFp2ZDZSSEZKVGFRY0s3ZmtWUlVtMWRLTlZacW94RUhucXhMblk2aEh0VVp4ZXl1UDRWTXRiVTVXZmNBTktURElPaHlVY1V6Z2ZyQkdEcmptU0tKS3Z5WnJSbWZDTER5Q0ZOVlRwQjJpMHh4b3FiZk1zVHpGQ3pRSWEtUDU2TFlOQ3RGUThaR3hTMGk5RVl2M1JEVWxiYmR4OHlSeTlUTDh5TUl4c3BZeUV2eEhWQ1JuaUFwVmIwa3lWTExzSEpDZ1Y5bUJ3cW43ZmJWOU5haTNfeGZZYmRVdXh3aVAyYVdIdE5iUjdmbVJWYTZiVFlwRkVZWUhDQ0ViVUR4SEZuZlc5YlJCNzQxVWZhV3J2bVBkSkM1WkZvQnl5dUxoNDVtQ05lY1NBUFhCVTRNdktUbXRyY3pRR1ZYY19BZW16MmwzaWNCeHRwXy1zNnh4N3lQVThqS1ZzeU5UZXAtWGFlRDcyaTVKWTlfU2lOZ0tTTmNydGtKVHFtMHFhQk9vT3p2VUdDOGZNaEp2Y0dYb29DSXhBdzNneXZsYVdIYUNYUmdKb19MVndaU3NjbDM0NEZlNFoxWmxKeU5LVDJQXzhqTmxrTXh3emh4QXR2d09SQ0NJNDdJdEJrSVBTVGFHUXVpUWI2M25BbFhCZWJwbHlHSlI1N1lFMkFiSTUtS05BU09xVjhCSW1FeS1RZzhTWk9wMWJyWW92ekVNNTBmd3p2Y092V2Y2RWJmWnZPcFU5ci0xRlVqeWItdUp4cThxMGRTZ3QwcnQ1UU04eE1vd1VaLXFMUGF4R1ZrakhFZDNFdk9lb2d3UzFoTmhWRWd6NVJVY0hFSTAxc1JWQWNJenlvc0N0bG9CTzlxSU1zZjc0eDcwN1poUkVqY1dSMHAtdkF6b05LUXRxdkYweW9IblhFeGtaN3owQW56S3N4UVRkT1RYYlhWdGhVek9DWkUzTnM5RHd0RUttaFJOZHBETkJfZUJCeWlBMV95amxpZGI4TG1KRksxNVBJQTVvRnQxTHdWemc3Z3VfSmVqVE1jZHcwUllqVjJjelZ0Q29CQmlTdGN4SnoxdmMzd0pRSDFXSkRySGdockxGNGVzYWZBUkdwOURWZXRLaHRXMjlicDN2YzhkX2NSWFJPMFZuNHJMQjEtZ1hOTnV2ZHpEeS1jeEpDY09uX3RsYzBRTmxoNE1oRllmdXpvMWpxMnhpVEE3N25DR0lhNXJRdFpyNENCVlRUUElUMHhYTzM3OTQxX1VQT2tLMVZVbEV4WDlOUHJtTG43NElhTkt3QzRqU1VZcFlPMDlkUFN0YjBqamRDT0RGems1UF9ybF8zVi1qdUlDSXZzVmxhOXgxdzhsUl9BaW5walBNV0hDemREU1NXczBuSWNWLUVOVmNUcDV0OV82QW1DRzAtcDNTM2VRby1JTnZvcV9lNVNHSGRKd1ZkSU9FRWdvOUlrUzdxU0wyQm5QMExjRmRXV0JnZ1g0LlV0WGJXOFp3LVpwMzB5c2tkQm5lWWNrc2NQd1dRZjJrUHV3TFhZQThPTXFMampSMXF2QTNwUElZbHM1WTJ5cE1nbjN3eGJWcThjYWdqMFpnNkYzeE9B"><input type="hidden" name="_eventId" value="submit"><input type="hidden" name="geolocation"></section>
+
+                    <button class="button water" name="submit" accesskey="l" type="submit" value="ENTRAR">
+                        Login
+                    </button>
+
+                    </form>
+                <script type="text/javascript">
+                    /*<![CDATA[*/
+                    var i = "One moment please..."
+                    var j = "ENTRAR"
+                        /*]]>*/
+                        $(window).on('pageshow', function () {
+                            $(':submit').prop('disabled', false);
+                            $(':submit').attr('value', j);
+                        });
+                    $(document).ready(function () {
+                        $("#fm1").submit(function () {
+                            $(":submit").attr("disabled", true);
+                            $(":submit").attr("value", i);
+                            return true;
+                        });
+                        $("#rememberMe").change(e => {
+                            isChecked = e.target.checked;
+                            $(".vc-provider-link").each((i,l) => {
+                                current = $(l).attr("href");
+                                if(isChecked) {
+                                    $(l).attr("href", current + "&rememberMe=true");
+                                } else {
+                                    $(l).attr("href", current.replace("&rememberMe=true",""));
+                                }
+                            })
+                        });
+                        if(document.getElementById("error-section")) {
+                            document.getElementById("loginProviders").style.display="none";
+                            document.getElementById("loginForm").style.display="block";
+                        }
+                        
+                    });
+                </script>
+                <span class="other-login-options" onclick="showLoginProviders()">
+                    <a><span class="arrow-icon-left"></span>  Other login options</a>
+                    <script>
+                        function showLoginProviders() {
+                            document.getElementById("loginProviders").style.display="block";
+                            document.getElementById("loginForm").style.display="none";
+                        }
+                    </script>
+                </span>
+                
+            </div>
+        </div>
+        </section>
+        <span>
+            <section id="loginProviders" class="login-section login-providers card-body">
+                <div>
+            <script type="text/javascript">
+                let providers = [];
+            </script>
+            <div>
+                <div class="login-providers-container d-flex justify-content-center" style="visibility:visible">
+                    <h2>Log in</h2>
+                    <span>Choose a method to log in:</span>
+                    <ul class="list-unstyled d-flex m-0 flex-fill">
+                        <li class="p-1 login-provider-item">
+
+                            <a class="vc-provider-link mdc-button mdc-button--raised btn btn-primary d-block mdc-button-facebook" id="Facebook" href="clientredirect?client_name=Facebook&amp;service=https%3A%2F%2Fvaadin.com%2Flogin%2Fcas&amp;rememberMe=true" autoredirecttype="none">
+
+                                <span class="mdi mdi-facebook"><b>Log in with Facebook</b></span>
+                                </a>
+
+                            <script>
+                                /*<![CDATA[*/
+                                providers.push({
+                                    name: "Facebook",
+                                    type: "facebook",
+                                    url: "clientredirect?client_name=Facebook\u0026service=https%3A%2F%2Fvaadin.com%2Flogin%2Fcas"
+                                });
+
+                                function jqueryReady() {
+                                    $("#fm1 #email").on("focusout", function () {
+                                        let user = $("#fm1 #email").val();
+                                        /*
+                                        if (user.endsWith("@example.org")) {
+                                            let provider = providers.find(element => element.name === "ClientName");
+                                            $("#passwordSection").hide();
+                                            location.href = provider.url;
+                                        }
+                                        */
+                                    });
+                                }
+                                /*]]>*/
+                            </script>
+
+                        </li>
+                        <li class="p-1 login-provider-item">
+
+                            <a class="vc-provider-link mdc-button mdc-button--raised btn btn-primary d-block mdc-button-twitter" id="Twitter" href="clientredirect?client_name=Twitter&amp;service=https%3A%2F%2Fvaadin.com%2Flogin%2Fcas&amp;rememberMe=true" autoredirecttype="none">
+
+                                <span class="mdi mdi-twitter"><b>Log in with Twitter</b></span>
+                                </a>
+
+                            <script>
+                                /*<![CDATA[*/
+                                providers.push({
+                                    name: "Twitter",
+                                    type: "twitter",
+                                    url: "clientredirect?client_name=Twitter\u0026service=https%3A%2F%2Fvaadin.com%2Flogin%2Fcas"
+                                });
+
+                                function jqueryReady() {
+                                    $("#fm1 #email").on("focusout", function () {
+                                        let user = $("#fm1 #email").val();
+                                        /*
+                                        if (user.endsWith("@example.org")) {
+                                            let provider = providers.find(element => element.name === "ClientName");
+                                            $("#passwordSection").hide();
+                                            location.href = provider.url;
+                                        }
+                                        */
+                                    });
+                                }
+                                /*]]>*/
+                            </script>
+
+                        </li>
+                        <li class="p-1 login-provider-item">
+
+                            <a class="vc-provider-link mdc-button mdc-button--raised btn btn-primary d-block mdc-button-github" id="GitHub" href="clientredirect?client_name=GitHub&amp;service=https%3A%2F%2Fvaadin.com%2Flogin%2Fcas&amp;rememberMe=true" autoredirecttype="none">
+
+                                <span class="mdi mdi-github"><b>Log in with Github</b></span>
+                                </a>
+
+                            <script>
+                                /*<![CDATA[*/
+                                providers.push({
+                                    name: "GitHub",
+                                    type: "github",
+                                    url: "clientredirect?client_name=GitHub\u0026service=https%3A%2F%2Fvaadin.com%2Flogin%2Fcas"
+                                });
+
+                                function jqueryReady() {
+                                    $("#fm1 #email").on("focusout", function () {
+                                        let user = $("#fm1 #email").val();
+                                        /*
+                                        if (user.endsWith("@example.org")) {
+                                            let provider = providers.find(element => element.name === "ClientName");
+                                            $("#passwordSection").hide();
+                                            location.href = provider.url;
+                                        }
+                                        */
+                                    });
+                                }
+                                /*]]>*/
+                            </script>
+
+                        </li>
+                        <li class="p-1 login-provider-item">
+
+                            <a class="vc-provider-link mdc-button mdc-button--raised btn btn-primary d-block mdc-button-google2" id="Google" href="clientredirect?client_name=Google&amp;service=https%3A%2F%2Fvaadin.com%2Flogin%2Fcas&amp;rememberMe=true" autoredirecttype="none">
+
+                                <span class="mdi mdi-google"><b>Log in with Google</b></span>
+                                </a>
+
+                            <script>
+                                /*<![CDATA[*/
+                                providers.push({
+                                    name: "Google",
+                                    type: "google2",
+                                    url: "clientredirect?client_name=Google\u0026service=https%3A%2F%2Fvaadin.com%2Flogin%2Fcas"
+                                });
+
+                                function jqueryReady() {
+                                    $("#fm1 #email").on("focusout", function () {
+                                        let user = $("#fm1 #email").val();
+                                        /*
+                                        if (user.endsWith("@example.org")) {
+                                            let provider = providers.find(element => element.name === "ClientName");
+                                            $("#passwordSection").hide();
+                                            location.href = provider.url;
+                                        }
+                                        */
+                                    });
+                                }
+                                /*]]>*/
+                            </script>
+
+                        </li>
+                        <li class="p-1 login-provider-item">
+
+                            <a class="vc-provider-link mdc-button mdc-button--raised btn btn-primary d-block mdc-button-linkedin2" id="LinkedIn" href="clientredirect?client_name=LinkedIn&amp;service=https%3A%2F%2Fvaadin.com%2Flogin%2Fcas&amp;rememberMe=true" autoredirecttype="none">
+
+                                <span class="mdi mdi-linkedin"><b>Log in with Linkedin</b></span>
+                                </a>
+
+                            <script>
+                                /*<![CDATA[*/
+                                providers.push({
+                                    name: "LinkedIn",
+                                    type: "linkedin2",
+                                    url: "clientredirect?client_name=LinkedIn\u0026service=https%3A%2F%2Fvaadin.com%2Flogin%2Fcas"
+                                });
+
+                                function jqueryReady() {
+                                    $("#fm1 #email").on("focusout", function () {
+                                        let user = $("#fm1 #email").val();
+                                        /*
+                                        if (user.endsWith("@example.org")) {
+                                            let provider = providers.find(element => element.name === "ClientName");
+                                            $("#passwordSection").hide();
+                                            location.href = provider.url;
+                                        }
+                                        */
+                                    });
+                                }
+                                /*]]>*/
+                            </script>
+
+                        </li>
+                        <li onclick="showEmailFields()" class="p-1 login-provider-item">
+                            <a class="vc-provider-link mdc-button mdc-button--raised mdc-button-email btn btn-primary d-block">
+                                <span class="mdi mdi-email"><b>Login with email</b></span>
+                            </a>
+                            <script>
+                                function showEmailFields() {
+                                    document.getElementById("loginProviders").style.display="none";
+                                    document.getElementById("loginForm").style.display="block";
+                                }
+                            </script>
+                        </li>
+                        <li id="other-options-button" class="other-options-button" onclick="showOtherOptions()">
+                            <a>See other options</a>
+                            <script>
+                                function showOtherOptions() {
+                                    document.getElementById("other-options-button").style.display="none";
+                                    document.getElementById("Facebook").parentElement.style.display = "block";
+                                    document.getElementById("Twitter").parentElement.style.display = "block";
+                                }
+                            </script>
+                        </li>
+                        </ul>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                /*<![CDATA[*/
+
+                let primaryUrl = null;
+                const redirectTo = $("a[autoRedirectType=client]").attr("href");
+                if (primaryUrl != null) {
+                    console.log(`Navigating to primary provider URL ${primaryUrl}`)
+                    window.location.href = primaryUrl;
+                }
+                else if (redirectTo !== null && redirectTo !== undefined) {
+                    console.log(`Navigating to provider URL ${redirectTo}`)
+                    window.location.href = redirectTo;
+                } else {
+                    console.log("Unable to locate provider with auto-redirect");
+                }
+                /*]]>*/
+            </script>
+        </div>
+
+    </section>
+        </span>
+        </div>
+</div>
+    </main>
+</div>
+<div class="footer">
+    <p class="sign-up-link">Don’t have an account?
+        <a href="https://vaadin.com/register">Sign up here  <span class="arrow-icon-right"></span></a></p>
+</div>
+
+
+</body></html>

@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","3170","verifySearchButtonExists()","","Fri Dec 05 18:56:33 WET 2025","passed","Fri Dec 05 18:56:36 WET 2025","","iscteiul.ista.testes_selenium.MainPageTest","iscteiul.ista.testes_selenium.MainPageTest","verifySearchButtonExists"
+"","19566","verifySiteTitle()","","Fri Dec 05 18:56:10 WET 2025","passed","Fri Dec 05 18:56:30 WET 2025","","iscteiul.ista.testes_selenium.MainPageTest","iscteiul.ista.testes_selenium.MainPageTest","verifySiteTitle"
+"","13662","testFormSubmissionSuccess()","","Fri Dec 05 19:03:50 WET 2025","passed","Fri Dec 05 19:04:03 WET 2025","","iscteiul.ista.testes_selenium.form_suite.CommunityTest","iscteiul.ista.testes_selenium.form_suite.CommunityTest","testFormSubmissionSuccess"
+"","3354","verifyDeveloperToolsMenu()","","Fri Dec 05 18:56:30 WET 2025","passed","Fri Dec 05 18:56:33 WET 2025","","iscteiul.ista.testes_selenium.MainPageTest","iscteiul.ista.testes_selenium.MainPageTest","verifyDeveloperToolsMenu"
+"","22498","testJoinCommunitySuccess()","","Fri Dec 05 18:56:53 WET 2025","failed","Fri Dec 05 18:57:15 WET 2025","","iscteiul.ista.testes_selenium.form_suite.CommunityTest","iscteiul.ista.testes_selenium.form_suite.CommunityTest","testJoinCommunitySuccess"
