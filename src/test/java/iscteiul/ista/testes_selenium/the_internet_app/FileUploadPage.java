@@ -5,6 +5,7 @@ import java.io.File;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.text;
 
 public class FileUploadPage {
     private static final String URL = "https://the-internet.herokuapp.com/upload";
@@ -40,6 +41,7 @@ public class FileUploadPage {
     }
 
     public String getSuccessMessage() {
+        successHeader.shouldHave(text("File Uploaded!"));
         return successHeader.getText().trim();
     }
 }
