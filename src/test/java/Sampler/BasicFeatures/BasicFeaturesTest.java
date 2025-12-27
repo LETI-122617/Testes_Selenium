@@ -1,4 +1,4 @@
-package Sampler.BasicFeatures;
+package sampler.BasicFeatures;
 
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Description;

@@ -1,4 +1,4 @@
-package Sampler.BasicFeatures;
+package sampler.BasicFeatures;
 
 import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$;

@@ -1,0 +1,256 @@
+                                                            Engenharia de Software
+                                                            Ficha laboratorial nº 5
+       Testes de caixa-preta/aceitação na validação de sistemas de software
+
+      Curso: LETI/LEI/LEI-PL                                                                2025/2026
+
+
+Objetivos
+    Esta ficha laboratorial aborda o tópico de testes de caixa-preta, no contexto de aceitação de
+sistemas de software. Em concreto, serão testadas aplicações web com base no padrão de desenho
+de software Page Object Model 1 .
+     Nota: É aceitável que esta ficha laboratorial não seja concluída integralmente na aula alocada para o
+efeito. Nesse caso, o trabalho deve continuar após a aula e as dúvidas que possam surgir serão esclarecidas
+nos horários de atendimento anunciados, ou acordados.
+
+Instrumento de aprendizagem
+           Ferramenta Selenium
+
+Informação de apoio
+      • Apontamentos das aulas teóricas
+      • Documentação de Selenium
+      • IntelliJ IDEA – Web UI Test Automation
+      • IntelliJ IDEA – Plugin Test Automation
+      • Documentação de Selenide
+      • Documentação de Allure Report
+
+
+Introdução
+    Os testes de caixa-preta, também denominados "testes funcionais”, são testes de software em
+que a pessoa que os desenvolve não tem conhecimento da estrutura interna do software a testar.
+Por norma são utilizados na fase de aceitação do software, tendo em consideração os requisitos que
+estiveram na base da sua implementação.
+    Nesta ficha iremos utilizar o software em código-aberto Selenium WebDriver para testar aplicações
+web, o qual faz parte da plataforma de testes Selenium. Através da sua utilização será possível
+automatizar o processo de testes num browser, com simulação de interações do utilizador, repetição
+de tarefas e validação do comportamento da aplicação em vários browsers.
+    Conforme se depreende pelo nome, o Selenium WebDriver recorre a drivers para os browsers.
+Nesta ficha vamos considerar apenas o browser Chrome, apesar de ser importante testar em vários
+browsers.
+
+
+
+
+  1
+      Não confundir com configuração POM no contexto do Maven.
+
+
+                                                    1
+   A figura seguinte apresenta um conjunto de funcionalidades disponíveis no Selenium WebDriver:
+
+
+
+
+    Relativamente ao desenho e implementação da automação de testes, será seguido o padrão de
+desenho de software Page Object Model. Assim, cada página web corresponderá a uma classe de
+teste e as interações com os elementos dessa página são definidas através de métodos.
+    Refira-se também que um browser dispõe de um Web inspector, que permite mostrar o código
+HTML da página web e consequentemente obter um localizador único – CSS ou XPath – para cada
+elemento da mesma (Web Element). Esta funcionalidade é genericamente designada por Inspect
+Element. 2
+
+Parte 1 – Testes de aceitação com Selenium
+   Verifique se tem o plugin Test Automation instalado e ativo, o qual é útil para o desenvolvimento
+e manutenção de testes automáticos de interface com o utilizador.
+
+A. Projeto-piloto de testes com Selenium
+   Vamos começar por realizar testes num projeto gerado pelo IntelliJ.
+
+   1. O membro de grupo com o MENOR número executa as seguintes tarefas:
+
+       (a) No IntelliJ, crie um projeto Selenium com repositório Git, incluindo as opções Java, Maven
+           e JUnit. Opte também por incluir código de demonstração e utilize a versão 4 do Selenium,
+           sem incluir outras ferramentas.
+       (b) Verifique o contéudo do ficheiro pom.xml.
+       (c) Crie uma diretoria na raíz do projeto com o nome reports, com o propósito de esta vir a
+           conter relatórios.
+       (d) Coloque a identificação dos membros do grupo num ficheiro README.md.
+       (e) Sem preocupação sobre a execução de testes, partilhe o projeto com os restantes membros
+           do grupo tal como foi feito nas outras fichas.
+
+   2. Os restantes membros do grupo criam uma cópia local do projeto partilhado.
+   2
+     A estrutura de uma página web é definida pelo Document Object Model (DOM), e o seu conteúdo pode ser
+alterado dinamicamente.
+
+
+
+                                                   2
+  3. Cada membro do grupo no seu ramo de trabalho:
+
+         (a) Tendo presente a documentação do Selenium, analise detalhadamente o código de de-
+             monstração e o ficheiro browsers.json.
+         (b) Execute a classe de teste MainPageTeste e valide os resultados de execução. Note que é
+             conveniente recorrer a instruções de paragem da execução, para avaliar pausadamente a
+             sequência de operações, ou até para esperar que determinado elemento numa página web
+             fique acessível. Para isso, use estratégias de espera do Selenium e Thread.sleep().
+         (c) Se algum dos testes falhar, comece por analisar as causas. Pode ser que falte alguma
+             dependência no ficheiro pom.xml; ou alguma biblioteca do WebDriver esteja em falta ou
+             não seja compatível com a versão do browser que utiliza.
+             Sugestão: Faça a execução teste a teste e, para cada um, comece por validar os elementos
+             definidos na classe MainPage.
+             Note que neste tipo de testes automáticos é usual proceder à inspeção de elementos
+             da página web em teste, nomeadamente sobre os localizadores/identificadores (CSS ou
+             XPath). Recorra ao browser incorporado no IntelliJ, isto é, a ferramenta Web Inspector,
+             e siga as sugestões sobre o assunto existentes na documentação do IntelliJ.
+             No código Java, atualize os localizadores de elementos das páginas que possam não estar
+             corretos. Faça as correções necessárias para que os testes executem sem falhas.
+         (d) Após a execução dos testes com sucesso, faça Push do ramo de trabalho para o repositório
+             remoto.
+             Nota: Não se pretende que o conteúdo do ramo seja incorporado no ramo main remoto.
+
+
+B. Automação de testes de elementos de interação
+    Esta tarefa tem como objetivo principal adquirir experiência na automação de testes sobre elemen-
+tos de interação em páginas web. 3 Para isso, vamos recorrer a um conjunto de exemplos disponíveis
+no sitio de demonstração online The Internet Heroku App. A implementação dos testes será feita no
+projeto anteriormente partilhado.
+    A tabela seguinte apresenta o conjunto de exemplos de teste a escolher pelo grupo, cuja distri-
+buição entre membros deve ser feita do seguinte modo (assumindo divisão por quatro membros):
+      • Dois exemplos do tipo de interação com elemento básico;
+      • Dois exemplos do tipo de interação com elemento básico, mas distintos dos anteriores;
+      • Um exemplo do tipo de conteúdo dinâmico;
+      • Um exemplo do tipo de interação com elemento complexo.
+  3
+      Substituição de ações manuais.
+
+
+
+
+                                                  3
+      Tipo/exemplo                          Caso de uso                      Exemplo de simulação real
+      Interação com elemento básico         Clicks, alertas e formulários    Painéis Admin,
+                                                                             páginas de login
+
+       Checkboxes
+       Dropdown
+       Basic Auth
+       Form Authentication
+       Horizontal Slider
+       Inputs
+       Notification Messages
+      Conteúdo dinâmico                     Atraso de elementos,             Carregamento de dashboards
+                                            estratégias de espera
+
+       Dynamic Content
+       Dynamic Loading
+      Interação com elemento complexo       Carregamento de ficheiros,       Retoma de carregamento,
+                                            validação de dados               gestores de ficheiros
+
+       File Upload
+       Secure File Download
+
+
+    Cada membro do grupo deve desenhar e implementar os respetivos testes seguindo o padrão
+de software Page Object Model. Pode começar por consultar os exemplos em Java disponíveis na
+documentação do Selenium.
+    No final, deve fazer Push do respetivo ramo de trabalho para o repositório remoto e solicitar a
+fusão com o ramo main através de Pull Request.
+
+
+Parte 2 – Automação com Selenide e relatórios com Allure Report
+
+    Nesta parte vamos testar parcialmente exemplos de utilização de aplicações web, recorrendo
+sobretudo a Selenide 4 . Também iremos gerar relatórios sobre a execução de testes de aceitação
+com a ferramenta Allure Report.
+    Os exemplos a considerar são análogos ao exemplo utilizado na ficha laboratorial nº 1, construído
+com Vaadin, mas mais simples. A tabela seguinte apresenta um conjunto de exemplos online e
+respetivos testes de aceitação que se pretende realizar.
+
+  4
+    Selenide é uma ferramenta de automação de testes baseada no Selenium WebDriver, cuja motivação principal
+é tornar o processo de escrita de testes em Selenium mais fácil.
+
+
+
+
+                                                     4
+       Exemplo online      Test suite (#)     Exemplo de simulação real
+       Bookstore                  1           Adicionar um produto
+                                  2           Adicionar uma categoria
+       Database                   3           Informação sobre filme
+       Form                       4           Fazer parte da comunidade
+       Sampler                    5           Aceder a um componente do tipo Interaction
+       Sampler                    6           Aceder a um componente do tipo Data input
+       Sampler                    7           Aceder a um componente do tipo Data presentation
+       Sampler                    8           Aceder a um componente do tipo Basic features
+
+
+1. De modo a utilizar a ferramenta Allure Report, atualize o ambiente de desenvolvimento da
+   seguinte forma:
+
+       (a) Instale o software Allure Report no computador – consulte a documentação Allure Report
+           sobre a sua integração no IntelliJ.
+       (b) Instale e ative o plugin Allure TestOps Support no IntelliJ. Embora o seu âmbito seja mais
+           abrangente, de momento apenas estamos interessados na geração de relatórios.
+
+2. O membro do grupo cuja conta GitHub aloja o projeto, deve atualizar o pom.xml de modo a
+   acomodar a utilização de Selenide e Allure Framework.
+      Como sugestão, crie um projeto Selenium no IntelliJ numa janela distinta, só com o propósito
+      de obter o pom.xml correto. Por exemplo:
+
+
+
+
+      Adicionalmente, coloque numa diretoria de recursos Maven, src → test → resources , um
+      ficheiro com o nome allure.properties contendo o seguinte texto:
+          allure.results.directory=target/allure-results
+      No final destes ajustamentos, atualize o projeto no GitHub seguindo os procedimentos usuais.
+
+3. Cada membro do grupo, após atualização da cópia local do projeto partilhado, irá criar um ramo
+   de trabalho próprio e implementar apenas UM test suite 5 dos acima referidos, necessariamente
+   distinto dos test suites implementados pelos outros membros do grupo.
+      Assim, cada membro do grupo:
+
+       (a) Abre um Issue no projeto partilhado no GitHub indicando qual é o test suite que vai
+           implementar.
+       (b) Cria um pacote com nome sugestivo do test suite em src → test → java .
+5
+    Os test suites 1, 2 e 4 apresentam um grau de dificuldade superior.
+
+
+                                                       5
+    (c) Nesse pacote, implementa os testes de aceitação recorrendo a Selenide e de acordo com
+        os padrões de software Page Object Model e Page Factory referidos nas aulas teóricas. As
+        classes de caracterização distinta devem ser colocadas em pacotes distintos; por exemplo,
+        as páginas-objeto devem ser colocadas no pacote respetivo. Relembra-se que existe uma
+        opção do IntelliJ para criar páginas-objeto, tal como se exemplifica abaixo:
+
+
+
+
+    (d) Executa os testes.
+    (e) Verifica o conteúdo da diretoria target/allure-results e, selecionando a mesma, exe-
+        cuta AllureReport : GenerateOn − T he − F ly. O resultado fica patente no browser.
+    (f) Repete a geração do relatório mas através da opção AllureReport : Generate, o que
+        cria um novo relatório em target/allure-results.
+    (g) Faz uma cópia do último relatório gerado para a diretoria reports do projeto, cujo nome
+        final deve indiciar o test suite implementado (mantendo no entanto a referência ao mo-
+        mento de criação).
+    (h) Faz Push do respetivo ramo de trabalho para o repositório remoto e solicita a fusão com
+        o ramo main através de Pull Request.
+    (i) Encerra o Issue que criou inicialmente no projeto partilhado no GitHub, após o respetivo
+        trabalho ter sido incorporado no ramo main remoto.
+
+4. O membro de grupo com o SEGUNDO MENOR número cria uma tag associada ao último
+   commit realizado no projeto no GitHub.
+
+5. No final, o grupo deve gravar um pequeno vídeo de demonstração com a execução dos test
+   suites referidos nesta Parte 2 da ficha (máximo de 5 minutos). O vídeo deve ser disponibilizado
+   publicamente no YouTube, com indicação do link no topo do ficheiro README no GitHub.
+
+
+
+
+                                              6
+
