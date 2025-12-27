@@ -3,9 +3,11 @@ package iscteiul.ista.testes_selenium.form_suite;
 import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.visible;
 
 public class CommunityPage {
-    // Usamos o Swag Labs porque o site da Vaadin mudou e não tem campos simples acessíveis
+    // Usamos o Swag Labs porque o site da Vaadin mudou e não tem campos simples
+    // acessíveis
     private static final String URL = "https://www.saucedemo.com/";
 
     // Seletores (Username e Password)
@@ -23,8 +25,8 @@ public class CommunityPage {
     }
 
     public void fillForm(String user, String pass) {
-        usernameField.setValue(user);
-        passwordField.setValue(pass);
+        usernameField.shouldBe(visible).setValue(user);
+        passwordField.shouldBe(visible).setValue(pass);
     }
 
     public void submit() {
