@@ -6,6 +6,8 @@
 * **Nome:** Eduardo Real | **Número:** 122608
 * **Nome:** Francisco Monteiro | **Número:** 110331
 
+**Vídeo YouTube:** https://youtu.be/0olt9KwNcso
+
 ---
 
 ### Relatórios Allure
@@ -97,11 +99,23 @@ Ao executar `mvn test`, os testes são tipicamente executados por ordem alfabét
 
 ```bash
 # Executar todos os testes
-mvn test
+mvn clean test
 
-# Executar uma suite específica
-mvn -Dtest=Bookstore.AddProductTest test
+# Executar suite específica
+mvn -Dtest=<NomeClasse> test
 ```
+
+**Comandos por Suite:**
+| Suite | Comando |
+|-------|---------|
+| 1 | `mvn -Dtest=Bookstore.AddProductTest test` |
+| 2 | `mvn -Dtest=Bookstore.AddCategoryTest test` |
+| 3 | `mvn -Dtest=iscteiul.ista.testes_selenium.database_suite.DatabaseTest test` |
+| 4 | `mvn -Dtest=iscteiul.ista.testes_selenium.form_suite.CommunityTest test` |
+| 5 | `mvn -Dtest=Sampler.Interaction.InteractionTest test` |
+| 6 | `mvn -Dtest=Sampler.datainput.DataInputTest test` |
+| 7 | `mvn -Dtest=Sampler.DataPresentation.DataPresentationTest test` |
+| 8 | `mvn -Dtest=Sampler.BasicFeatures.BasicFeaturesTest test` |
 
 #### Visualizar Relatório Allure
 
