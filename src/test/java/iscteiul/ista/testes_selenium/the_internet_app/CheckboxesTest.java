@@ -1,8 +1,8 @@
 package iscteiul.ista.testes_selenium.the_internet_app;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
+import io.qameta.allure.Description;
+import iscteiul.ista.testes_selenium.support.BaseSelenideTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,14 +10,13 @@ import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.checked;
 import static com.codeborne.selenide.Condition.not;
 
-public class CheckboxesTest {
+public class CheckboxesTest extends BaseSelenideTest {
 
     CheckboxesPage page = new CheckboxesPage();
 
     @BeforeAll
     static void setup() {
         Configuration.browserSize = "1920x1080";
-        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @BeforeEach
@@ -26,6 +25,7 @@ public class CheckboxesTest {
     }
 
     @Test
+    @Description("Toggle both checkboxes and confirm their final states.")
     public void testCheckboxInteraction() {
         // 1. Verificar estado inicial
         // Por defeito no site, o Checkbox 1 está unchecked e o 2 está checked

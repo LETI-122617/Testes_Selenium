@@ -1,8 +1,8 @@
 package iscteiul.ista.testes_selenium.the_internet_app;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
+import io.qameta.allure.Description;
+import iscteiul.ista.testes_selenium.support.BaseSelenideTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,14 +17,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class FileUploadTest {
+public class FileUploadTest extends BaseSelenideTest {
 
     FileUploadPage page = new FileUploadPage();
 
     @BeforeAll
     static void setup() {
         Configuration.browserSize = "1920x1080";
-        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @BeforeEach
@@ -33,6 +32,7 @@ public class FileUploadTest {
     }
 
     @Test
+    @Description("Upload a temporary file and validate the success message and filename.")
     public void testFileUpload(@TempDir Path tempDir) throws IOException {
         // 1. Preparação: Criar um ficheiro falso para teste
         String fileName = "teste_upload.txt";

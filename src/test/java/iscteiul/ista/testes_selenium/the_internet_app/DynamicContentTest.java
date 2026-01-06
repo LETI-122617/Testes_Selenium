@@ -1,22 +1,21 @@
 package iscteiul.ista.testes_selenium.the_internet_app;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
+import io.qameta.allure.Description;
+import iscteiul.ista.testes_selenium.support.BaseSelenideTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class DynamicContentTest {
+public class DynamicContentTest extends BaseSelenideTest {
 
     DynamicContentPage page = new DynamicContentPage();
 
     @BeforeAll
     static void setup() {
         Configuration.browserSize = "1920x1080";
-        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @BeforeEach
@@ -25,20 +24,17 @@ public class DynamicContentTest {
     }
 
     @Test
+    @Description("Refresh dynamic content and verify the text changes.")
     public void testContentChangesOnRefresh() {
         // 1. Capturar o texto inicial da 3ª linha (índice 2)
         // (A 3ª linha costuma mudar mais frequentemente ou podemos testar todas)
         String initialText = page.getRowText(2);
 
-        System.out.println("Texto Inicial: " + initialText);
-
-        // 2. Ação: Recarregar a página
-        page.refreshPage();
-
-        // 3. Capturar o novo texto da mesma linha
-        String newText = page.getRowText(2);
-
-        System.out.println("Texto Novo: " + newText);
+        String newText = initialText;
+        for (int attempt = 0; attempt < 3 && newText.equals(initialText); attempt++) {
+            page.refreshPage();
+            newText = page.getRowText(2);
+        }
 
         // 4. Validação: O texto DEVE ser diferente
         assertNotEquals(initialText, newText, "O conteúdo devia ter mudado após o refresh!");

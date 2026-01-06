@@ -1,8 +1,10 @@
 package iscteiul.ista.testes_selenium.form_suite;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 
 public class CommunityPage {
@@ -19,22 +21,29 @@ public class CommunityPage {
 
     // Elemento que aparece após sucesso (Título da loja)
     private final SelenideElement successElement = $(".app_logo");
+    private final SelenideElement inventoryTitle = $(".title");
+    private final SelenideElement inventoryContainer = $("#inventory_container");
 
+    @Step("Open community page")
     public void openPage() {
         open(URL);
     }
 
+    @Step("Fill community form with username: {user}")
     public void fillForm(String user, String pass) {
         usernameField.shouldBe(visible).setValue(user);
         passwordField.shouldBe(visible).setValue(pass);
     }
 
+    @Step("Submit community form")
     public void submit() {
-        loginButton.click();
+        loginButton.shouldBe(visible).click();
     }
 
-    public SelenideElement getSuccessMessage() {
-        // Retornamos o logo da loja para verificar se o login funcionou
-        return successElement;
+    @Step("Assert login success on community page")
+    public void assertLoginSuccess() {
+        successElement.shouldBe(visible).shouldHave(text("Swag Labs"));
+        inventoryTitle.shouldBe(visible).shouldHave(text("Products"));
+        inventoryContainer.shouldBe(visible);
     }
 }

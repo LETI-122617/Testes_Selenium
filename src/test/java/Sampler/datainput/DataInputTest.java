@@ -1,21 +1,20 @@
-package sampler.datainput;
+package Sampler.datainput;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
+import io.qameta.allure.Description;
+import iscteiul.ista.testes_selenium.support.BaseSelenideTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DataInputTest {
+public class DataInputTest extends BaseSelenideTest {
 
     DataInputPage page;
 
     @BeforeAll
     public static void setUpAll() {
         Configuration.browserSize = "1280x800";
-        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @BeforeEach
@@ -25,6 +24,7 @@ public class DataInputTest {
     }
 
     @Test
+    @Description("Ensure the Sampler Data input text field accepts and returns the typed value.")
     public void testTextFieldInteraction() {
         String textoTeste = "ES 2025"; // Máximo 10 caracteres
         page.typeText(textoTeste);
