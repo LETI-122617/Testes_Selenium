@@ -3,8 +3,8 @@ package iscteiul.ista.testes_selenium;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
+import io.qameta.allure.Description;
+import iscteiul.ista.testes_selenium.support.BaseSelenideTest;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,13 +12,12 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class MainPageTest {
+public class MainPageTest extends BaseSelenideTest {
 
     @BeforeAll
     public static void setUpAll() {
-        // A tua versão (correta) usa 1920x1080 e configura o Allure
+        // A tua versão (correta) usa 1920x1080
         Configuration.browserSize = "1920x1080";
-        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @BeforeEach
@@ -26,18 +25,15 @@ public class MainPageTest {
         // 1. Abrir a página
         open("https://www.jetbrains.com/");
 
-        // 2. Dar tempo para carregar
-        Selenide.sleep(1000);
+        // 2. Esperar por um elemento estável do header
+        $("[data-test='site-header-search-action']").shouldBe(visible);
 
         // 3. Fechar Cookies (se aparecerem) - Lógica robusta
-        SelenideElement cookieButton = $(byText("Accept All"));
-        if (cookieButton.exists()) {
-            cookieButton.click();
-            cookieButton.shouldNotBe(visible);
-        }
+        closeCookieDialogIfPresent();
     }
 
     @Test
+    @Description("Verify the JetBrains homepage title contains the expected branding.")
     public void verifySiteTitle() {
         // Teste Simples: Verificar se o título contém "JetBrains"
         String title = Selenide.title();
@@ -46,10 +42,12 @@ public class MainPageTest {
     }
 
     @Test
+    @Description("Open the Developer Tools menu and ensure it stays visible.")
     public void verifyDeveloperToolsMenu() {
         // Teste de Navegação
         SelenideElement menuDevTools = $(byText("Developer Tools"));
 
+        closeCookieDialogIfPresent();
         menuDevTools.shouldBe(visible).click();
 
         // Verifica se continua visível/ativo
@@ -57,8 +55,28 @@ public class MainPageTest {
     }
 
     @Test
+    @Description("Check that the site search button is visible.")
     public void verifySearchButtonExists() {
         // Teste de Existência atualizado
         $("[data-test='site-header-search-action']").shouldBe(visible);
+    }
+
+    private void closeCookieDialogIfPresent() {
+        // Aguardar brevemente para o popup aparecer
+        Selenide.sleep(100);
+        
+        // Tentar aceitar cookies se o botão existir
+        SelenideElement acceptAllButton = $(".ch2-allow-all-btn");
+        if (acceptAllButton.exists() && acceptAllButton.is(visible)) {
+            try {
+                acceptAllButton.click();
+                Selenide.sleep(300);
+            } catch (Exception ignored) {}
+        }
+        
+        // Forçar remoção via JavaScript (mais fiável)
+        Selenide.executeJavaScript(
+            "document.querySelectorAll('.ch2-container, .ch2-dialog, [class*=\"cookie\"], [id*=\"cookie\"]').forEach(el => el.remove());"
+        );
     }
 }
